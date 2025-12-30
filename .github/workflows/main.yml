@@ -29,11 +29,26 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"fight_mode":false,"enable_js":false}'
 
-      # 3. 等待设置生效
+      # 3. 禁用所有Bot防护
+      - name: Disable All Bot Protection
+        run: |
+          # 完全禁用Bot Fight Mode
+          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/settings/bot_fight_mode" \
+            -H "Authorization: Bearer ${{ secrets.CF_TOKEN_GH_ACTIONS }}" \
+            -H "Content-Type: application/json" \
+            -d '{"value":"off"}'
+
+          # 设置Security Level为Essentially Off
+          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/settings/security_level" \
+            -H "Authorization: Bearer ${{ secrets.CF_TOKEN_GH_ACTIONS }}" \
+            -H "Content-Type: application/json" \
+            -d '{"value":"essentially_off"}'
+
+      # 4. 等待设置生效
       - name: Sleep 5 seconds to ensure settings propagate
         run: sleep 5
 
-      # 4. 执行主要任务
+      # 5. 执行主要任务
       - name: Run with setup-python 3.9
         uses: actions/setup-python@v4
         with:
@@ -54,13 +69,26 @@ jobs:
           IMAGE_HOSTING_SECRET_TOKEN: ${{ secrets.IMAGE_HOSTING_SECRET_TOKEN }}
         run: uv run main.py
 
-      # 5. 重新启用Bot Fight Mode
-      - name: Reenable Bot Fight Mode
+      # 6. 恢复Cloudflare防火墙原状
+      - name: Restore Cloudflare Firewall Settings
         run: |
+          # 重新启用Bot Fight Mode
           curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/bot_management" \
             -H "Authorization: Bearer ${{ secrets.CF_TOKEN_GH_ACTIONS }}" \
             -H "Content-Type: application/json" \
             -d '{"fight_mode":true,"enable_js":true}'
+
+          # 恢复Bot Fight Mode设置
+          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/settings/bot_fight_mode" \
+            -H "Authorization: Bearer ${{ secrets.CF_TOKEN_GH_ACTIONS }}" \
+            -H "Content-Type: application/json" \
+            -d '{"value":"on"}'
+
+          # 恢复Security Level为Medium
+          curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/settings/security_level" \
+            -H "Authorization: Bearer ${{ secrets.CF_TOKEN_GH_ACTIONS }}" \
+            -H "Content-Type: application/json" \
+            -d '{"value":"medium"}'
       - name: Commit and push if changed   # 将.md_sha1 README.md 更新到仓库
         run: |
           git diff
