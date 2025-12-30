@@ -12,6 +12,28 @@ jobs:
           operating-system: ['ubuntu-22.04']
       steps:
       - uses: actions/checkout@v3 # Checking out the repo
+
+      # 1. Bypass Cloudflare
+      - name: Bypass Cloudflare for GitHub Action
+        uses: xiaotianxt/bypass-cloudflare-for-github-action@v2.0.1
+        with:
+          cf_account_id: ${{ secrets.CF_ACCOUNT_ID }}
+          cf_zone_id: ${{ secrets.CF_ZONE_ID }}
+          cf_api_token: ${{ secrets.CF_TOKEN_GH_ACTIONS }}
+
+      # 2. 禁用Bot Fight Mode
+      - name: Disable Bot Fight Mode
+        run: |
+          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/bot_management" \
+            -H "Authorization: Bearer ${{ secrets.CF_TOKEN_GH_ACTIONS }}" \
+            -H "Content-Type: application/json" \
+            -d '{"fight_mode":false,"enable_js":false}'
+
+      # 3. 等待设置生效
+      - name: Sleep 5 seconds to ensure settings propagate
+        run: sleep 5
+
+      # 4. 执行主要任务
       - name: Run with setup-python 3.9
         uses: actions/setup-python@v4
         with:
@@ -31,6 +53,14 @@ jobs:
           IMAGE_HOSTING_URL: ${{ secrets.IMAGE_HOSTING_URL }}
           IMAGE_HOSTING_SECRET_TOKEN: ${{ secrets.IMAGE_HOSTING_SECRET_TOKEN }}
         run: uv run main.py
+
+      # 5. 重新启用Bot Fight Mode
+      - name: Reenable Bot Fight Mode
+        run: |
+          curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/bot_management" \
+            -H "Authorization: Bearer ${{ secrets.CF_TOKEN_GH_ACTIONS }}" \
+            -H "Content-Type: application/json" \
+            -d '{"fight_mode":true,"enable_js":true}'
       - name: Commit and push if changed   # 将.md_sha1 README.md 更新到仓库
         run: |
           git diff
