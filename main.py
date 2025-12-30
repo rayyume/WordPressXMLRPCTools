@@ -107,7 +107,35 @@ def handle_local_markdown_image(md_path, content):
                 res = requests.post(image_hosting_url, files=files, data=data, timeout=30)
                 # 打印出的值为 upload_res==>> https://cdn.fangyuanxiaozhan.com/assets/1766384328413NB766Xri.png
                 print("upload_res==>>", res.text)
-                local_image_path_to_http_url[image_link] = res.text
+
+                # 解析图床响应，支持JSON格式和纯文本格式
+                uploaded_url = None
+                response_text = res.text.strip()
+
+                try:
+                    # 尝试解析JSON响应，格式: [{"src":"/file/xxx.png"}]
+                    json_response = json.loads(response_text)
+                    if isinstance(json_response, list) and len(json_response) > 0:
+                        src_path = json_response[0].get("src", "")
+                        if src_path:
+                            # 如果是相对路径，补全为完整URL
+                            if src_path.startswith("/"):
+                                # 从 image_hosting_url 提取基础域名
+                                parsed_url = urlparse(image_hosting_url)
+                                base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+                                uploaded_url = base_url + src_path
+                            else:
+                                uploaded_url = src_path
+                except (json.JSONDecodeError, TypeError, IndexError, AttributeError):
+                    # JSON解析失败，回退到纯文本模式（兼容旧格式）
+                    if response_text.startswith("http"):
+                        uploaded_url = response_text
+
+                if uploaded_url:
+                    local_image_path_to_http_url[image_link] = uploaded_url
+                    print("图片上传成功==>>", uploaded_url)
+                else:
+                    print("图片上传响应解析失败==>>", response_text)
         except Exception as e:
             print("图片上传失败，跳过==>>", image_abs_path, str(e))
 
