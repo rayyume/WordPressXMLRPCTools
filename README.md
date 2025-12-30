@@ -2,10 +2,6 @@
 
 ---start---
 ## 目录(2025年12月30日更新)
-[test auto post from github](https://rayyu.me/p/test/)
-
-[test auto post from github](https://rayyu.me/p/test copy/)
-
 ---end---
 
 
