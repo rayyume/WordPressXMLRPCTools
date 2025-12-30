@@ -57,27 +57,7 @@ url_info = urlparse(xmlrpc_php)
 
 domain_name = url_info.netloc
 
-# 绕过Cloudflare Bot检测，添加浏览器headers
-import requests
-from wordpress_xmlrpc import Client
-from wordpress_xmlrpc.methods import posts
-import urllib3
-
-# 禁用SSL警告（可选）
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-# 自定义session添加headers
-session = requests.Session()
-session.headers.update({
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    'Accept-Language': 'en-US,en;q=0.5',
-    'Accept-Encoding': 'gzip, deflate',
-    'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1',
-})
-
-wp = Client(xmlrpc_php, username, password, transport=session)
+wp = Client(xmlrpc_php, username, password)
 
 def handle_local_markdown_image(md_path, content):
     # 第一步：content为markdown格式，从content里查找所有的本地图片链接，本地图片不以http开头
