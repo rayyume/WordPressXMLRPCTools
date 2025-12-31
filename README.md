@@ -1,8 +1,10 @@
 # 方圆小站Github仓库
 
 ---start---
-## 目录(2025年12月30日更新)
+## 目录(2025年12月31日更新)
 [First Post from GitHub Actions](https://rayyu.me/p/2025-12-31-first-post-from-github-actions/)
+
+[DIY全屋智能：我的米家智能家居方案设计与踩坑全记录](https://rayyu.me/p/2025-11-03-diy-smart-home/)
 
 ---end---
 
