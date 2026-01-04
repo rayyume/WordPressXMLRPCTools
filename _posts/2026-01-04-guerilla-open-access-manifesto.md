@@ -3,7 +3,7 @@ title: Guerilla Open Access Manifesto
 categories:
 - talkings
 ---
-![aaron](./2026-01-04-guerilla-open-access-manifesto.assets/Aaron_Swartz_profile.jpg)
+![aaron](./2026-01-04-guerilla-open-access-manifesto.assets/Aaron_Swartz_profile_resized.jpg)
 ## Guerilla Open Access Manifesto
 Information is power. But like all power, there are those who want to keep it for themselves. The world’s entire scientific and cultural heritage, published over centuries in books and journals, is increasingly being digitized and locked up by a handful of private corporations. Want to read the papers featuring the most famous results of the sciences? You’ll need to send enormous amounts to publishers like Reed Elsevier.
 
