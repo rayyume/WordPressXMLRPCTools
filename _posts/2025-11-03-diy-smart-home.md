@@ -8,7 +8,6 @@ categories:
 - share
 - smart home
 ---
-![test](./2025-11-03-diy-smart-home.assets/test.png)
 ![head-pic](./2025-11-03-diy-smart-home.assets/global-lights-rendering.jpg)
 >新房装修，面对小米之家和Aqara动辄数万的全屋智能方案，我最终选择了DIY。本文将详细记录我如何基于米家蓝牙Mesh 2.0生态，完成从水电规划、智能家居设备选型到米家自动化和Home Assistant进阶的全过程。重点分享在方案设计、安装调试中踩过的坑，为打算自己动手打造智能家居的老铁，提供一份真实的参考。
 
