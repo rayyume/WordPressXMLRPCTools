@@ -1,7 +1,9 @@
 # 方圆小站Github仓库
 
 ---start---
-## 目录(2026年01月27日更新)
+## 目录(2026年01月31日更新)
+[二道贩子在卖什么？Mac Mini跑OpenClaw为平民打工人赚了什么？](https://fangyuanxiaozhan.com/p/2026-01-31-10-17-17-openclaw/)
+
 [作为程序员，我从没像现在这样感到如此落后，理想主义者的Clawdbot](https://fangyuanxiaozhan.com/p/2026-01-27-17-31-19-clawdbot/)
 
 [二道贩子永远是赚最多的！](https://fangyuanxiaozhan.com/p/2026-01-19-14-34-26-openrouter/)
