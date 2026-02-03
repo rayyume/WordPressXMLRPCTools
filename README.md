@@ -1,7 +1,7 @@
 # RaysBlog Updater
 
 ---start---
-## 目录(2026年01月12日更新)
+## 目录(2026年02月03日更新)
 [Guerilla Open Access Manifesto](https://rayyu.me/p/2026-01-04-guerilla-open-access-manifesto/)
 
 [DIY全屋智能：我的米家智能家居方案设计与踩坑全记录](https://rayyu.me/p/2025-11-03-diy-smart-home/)
