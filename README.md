@@ -1,7 +1,9 @@
 # 方圆小站Github仓库
 
 ---start---
-## 目录(2026年02月01日更新)
+## 目录(2026年02月09日更新)
+[OpenClaw变现的途径](https://fangyuanxiaozhan.com/p/2026-02-09-21-58-15-openclaw/)
+
 [Openclaw的8条实用技巧,教你用OpenClaw自动分析懂王推文](https://fangyuanxiaozhan.com/p/2026-02-01-10-41-58-openclaw-tips/)
 
 [二道贩子在卖什么？Mac Mini跑OpenClaw为平民打工人赚了什么？](https://fangyuanxiaozhan.com/p/2026-01-31-10-17-17-openclaw/)
