@@ -2,7 +2,6 @@
 title: Guerilla Open Access Manifesto
 categories:
 - talkings
-- share
 ---
 ![aaron](./2026-01-04-guerilla-open-access-manifesto.assets/Aaron_Swartz_profile_resized.jpg)
 ## Guerilla Open Access Manifesto
