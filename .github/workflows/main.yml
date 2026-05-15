@@ -91,6 +91,7 @@ jobs:
 
       # 6. 恢复Cloudflare防火墙原状
       - name: Restore Cloudflare Firewall Settings
+        if: always()
         run: |
           # 重新启用Bot Fight Mode
           curl -X PUT "https://api.cloudflare.com/client/v4/zones/${{ secrets.CF_ZONE_ID }}/bot_management" \
