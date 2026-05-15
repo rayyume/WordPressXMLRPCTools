@@ -35,6 +35,16 @@ Compared with orignal repository, following features added:
 4. Clone your forked project locally, and delete my articles in your project.
 5. Write articles in `_posts/`, articles' .md file should be named as YourArticleName.md, images in articles should be placed in related path as YourArticleName.assets.
 6. Commit and push — the GitHub Action will sync them to WordPress automatically, then enjoy.
+
+## Note
+1. If there is error during login process in Action, try to disable Wordfence's limitation of XMLRPC (Wordfence-all settings-update login security options-uncheck 'Disable XML-RPC authentication' and select SKIPPED in 'Require 2FA for XML-RPC call authentication').
+2. Try to use application password of WordPress, which can be enabled in profile page.
+3. If Wordfence blocks Cloudflare's ips, add listed code in wp-config.pho before '/* That's all, stop editing! */'.
+```
+if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+}
+```
 ---
 ## 简介
 
@@ -65,3 +75,12 @@ Compared with orignal repository, following features added:
 4. 克隆 Fork 后的项目到本地，删除 `_posts/` 目录下的示例文章；
 5. 在 `_posts/` 目录下编写文章，Markdown 文件命名为 `文章名.md`，文章中的图片放在对应的 `文章名.assets` 目录下；
 6. 提交并推送 — GitHub Actions 会自动同步到 WordPress，enjoy。
+## 提示
+1. 如果 GitHub Actions 运行过程中出现登录错误，请检查 Wordfence 的 XML-RPC 限制设置（Wordfence → All Options → Login Security → 取消勾选「Disable XML-RPC authentication」，并将「Require 2FA for XML-RPC call authentication」设为 SKIPPED）；
+2. 建议使用 WordPress 应用密码代替登录密码，可在用户个人资料页面生成；
+3. 如果 Wordfence 拦截了 Cloudflare 的 IP，请在 `wp-config.php` 的 `/* That's all, stop editing! */` 注释之前添加以下代码，使 WordPress 能正确识别真实客户端 IP：
+```// 在 wp-config.php 的 "That's all" 注释之前加
+if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+    $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
+}
+```
