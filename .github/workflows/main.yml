@@ -58,25 +58,26 @@ jobs:
         uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-      - name: Debug credentials
+      - name: Debug credentials with Python
         env:
           XMLRPC_PHP: ${{ secrets.XMLRPC_PHP }}
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          echo "USERNAME is: [$USERNAME]"
-          echo "PASSWORD length: ${#PASSWORD}"
-          echo "PASSWORD first 3 chars: ${PASSWORD:0:3}***"
-          echo "XMLRPC_PHP is: [$XMLRPC_PHP]"
-          curl -s "$XMLRPC_PHP" -d '<?xml version="1.0"?>
-          <methodCall>
-            <methodName>wp.getProfile</methodName>
-            <params>
-              <param><value>1</value></param>
-              <param><value><string>'"$USERNAME"'</string></value></param>
-              <param><value><string>'"$PASSWORD"'</string></value></param>
-            </params>
-          </methodCall>'
+          uv run python3 -c "
+          import os, xmlrpc.client
+          u = os.environ['USERNAME']
+          p = os.environ['PASSWORD']
+          print(f'USERNAME: [{u}]')
+          print(f'PASSWORD length: {len(p)}')
+          print(f'XMLRPC_PHP: [{os.environ[\"XMLRPC_PHP\"]}]')
+          server = xmlrpc.client.ServerProxy(os.environ['XMLRPC_PHP'])
+          try:
+              result = server.wp.getProfile(1, u, p)
+              print('SUCCESS:', result)
+          except Exception as e:
+              print('ERROR:', e)
+          "
       - name: Install dependecies
         run: uv sync --frozen
       - name: Build
