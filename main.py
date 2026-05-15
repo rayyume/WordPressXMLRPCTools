@@ -100,10 +100,10 @@ def handle_local_markdown_image(md_path, content):
                 mime_type = mimetypes.guess_type(image_abs_path)[0] or "application/octet-stream"
                 file_name = os.path.basename(image_abs_path)
                 files = {"file": (file_name, f, mime_type)}
-                data = {}
+                headers = {}
                 if image_hosting_secret_token:
-                    data["secret_token"] = image_hosting_secret_token
-                res = requests.post(image_hosting_url, files=files, data=data, timeout=30)
+                    headers["authCode"] = image_hosting_secret_token
+                res = requests.post(image_hosting_url, files=files, headers=headers, timeout=30)
                 # 打印出的值为 upload_res==>> https://cdn.fangyuanxiaozhan.com/assets/1766384328413NB766Xri.png
                 print("upload_res==>>", res.text)
 
