@@ -27,7 +27,7 @@ Compared with orignal repository, following features added:
 | CF_ZONE_ID  | Your Domain Managed by Cloudflare  | Your WordPress Host Domain|
 | CF_TOKEN_GH_ACTIONS  | Your Cloudflare Account API Token  | Your Cloudflare API Token, Which has listed permissions:Account.Account Filter Lists, Zone.Bot Management,  Zone.Zone WAF, Zone.Zone Settings,Zone.Zone Settings.|
 | USERNAME  | Your WordPress Account Username  | As it is|
-| PASSWORD | Your WordPress Account Password  | As it is|
+| PASSWORD | Your WordPress Account Password  | As it is, WordPress Application Password preferred.|
 | XMLRPC_PHP | Your WordPress XMLRPC Address  | e.g. https://YourWordPressDomain.com/xmlrpc.php|
 | IMAGE_HOSTING_URL | Image Hosting Service Url   | Depends on the Img Hosting Service you use. If you use [CloudFlare-ImgBed](https://github.com/MarSeventh/CloudFlare-ImgBed), the link would be https://YourImgHostDomain.com/upload. |
 | IMAGE_HOSTING_SECRET_TOKEN | Image Hosting Service Upload API Token | Depends on the Img Hosting Service you Use. If you use [CloudFlare-ImgBed](https://github.com/MarSeventh/CloudFlare-ImgBed), You can set up the token in System Settings → Security Settings. |
@@ -39,7 +39,7 @@ Compared with orignal repository, following features added:
 ## Note
 1. If there is error during login process in Action, try to disable Wordfence's limitation of XMLRPC (Wordfence-all settings-update login security options-uncheck 'Disable XML-RPC authentication' and select SKIPPED in 'Require 2FA for XML-RPC call authentication').
 2. Try to use application password of WordPress, which can be enabled in profile page.
-3. If Wordfence blocks Cloudflare's ips, add listed code in wp-config.pho before '/* That's all, stop editing! */'.
+3. If Wordfence blocks Cloudflare's ips, add listed code in wp-config.php before '/* That's all, stop editing! */'.
 ```
 if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
     $_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CF_CONNECTING_IP'];
@@ -67,7 +67,7 @@ if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
 | CF_ZONE_ID  | WordPress 域名在 Cloudflare 的 Zone ID  | Cloudflare 首页 → 选择你的域名 → 概述页面右侧栏 Zone ID |
 | CF_TOKEN_GH_ACTIONS  | Cloudflare API Token  | Cloudflare → My Profile → API Tokens → 创建 Token，需包含以下权限：Account.Account Filter Lists、Zone.Bot Management、Zone.Zone WAF、Zone.Zone Settings |
 | USERNAME  | WordPress 后台登录用户名  | 即你的 WordPress 用户名 |
-| PASSWORD  | WordPress 后台登录密码  | 即你的 WordPress 密码 |
+| PASSWORD  | WordPress 后台登录密码  | 即你的 WordPress 密码，建议使用应用程序密码|
 | XMLRPC_PHP  | WordPress XML-RPC 接口地址  | 格式：`https://你的WordPress域名/xmlrpc.php` |
 | IMAGE_HOSTING_URL  | 图床上传接口地址  | 取决于你使用的图床服务。若使用 [CloudFlare-ImgBed](https://github.com/MarSeventh/CloudFlare-ImgBed)，地址为 `https://你的图床域名/upload` |
 | IMAGE_HOSTING_SECRET_TOKEN  | 图床上传密钥  | 取决于你使用的图床服务。若使用 [CloudFlare-ImgBed](https://github.com/MarSeventh/CloudFlare-ImgBed)，在系统设置 → 安全设置中配置 |
