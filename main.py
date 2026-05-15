@@ -28,12 +28,11 @@ with open (config_file_txt, 'rb') as f:
     config_info = json.loads(f.read())
 
 
-username = config_info["USERNAME"]
-password = config_info["PASSWORD"]
-xmlrpc_php = config_info["XMLRPC_PHP"]
-# 处理本地图片上传的配置
-image_hosting_url = config_info["IMAGE_HOSTING_URL"]
-image_hosting_secret_token = config_info["IMAGE_HOSTING_SECRET_TOKEN"]
+username = config_info.get("USERNAME", "")
+password = config_info.get("PASSWORD", "")
+xmlrpc_php = config_info.get("XMLRPC_PHP", "")
+image_hosting_url = config_info.get("IMAGE_HOSTING_URL", "")
+image_hosting_secret_token = config_info.get("IMAGE_HOSTING_SECRET_TOKEN", "")
 
 try:
     if(os.environ["USERNAME"]):
