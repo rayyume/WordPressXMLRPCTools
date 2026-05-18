@@ -17,7 +17,7 @@ Compared with orignal repository, following features added:
 - Resolved the 403 error when updating posts, which caused by Cloudflare WAF and anti-bot service.
 
 ## Deployment
-1. fork this project;
+1. Fork this project;
 2. Set up environment variables in forked project's page (settings-secrets and variables);
 3. Input listed environment variables. Explanation of environment variables lists blow:
 
